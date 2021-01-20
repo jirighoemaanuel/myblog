@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from . models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from . forms import EmailPostForm, CommentForm
@@ -36,6 +36,7 @@ def post_detail(request, year, month, day, post):
             new_comment.post = post
             # Save the comment to the database
             new_comment.save()
+            return redirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
 
